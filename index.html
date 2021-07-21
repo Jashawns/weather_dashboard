@@ -5,8 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
+
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+/>
+
+<script>
+    rel="stylesheet"
+    src="./Assets/css/style.css"
+</script>
     
+<title>Weather Dashboard</title>
+</head>
+
+<body>
+
+<div class="input">
+    <input type="text" class="inputValue" placeholder="Enter a city">
+    <button id="button" value="submit">Submit</button>
+</div>
+
+<div class="display">
+    <h1 class="name"></h1>
+    <p class="desc"></p>
+    <p class="temp"></p>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./Assets/js/script.js"></script>
 </body>
 </html>
