@@ -26,10 +26,37 @@
     <button id="button" value="submit">Submit</button>
 </div>
 
-<div class="display">
-    <h1 class="name"></h1>
-    <p class="desc"></p>
-    <p class="temp"></p>
+<div class="col-8">
+    <div class="row mr-0">
+        <div class="col-12 border border-dark m-3 rounded">
+            <div class="row">
+                <div class="col-12">
+                    <span id="city-name" class="city-name align-middle"></span>
+                    <img id="temp-icon" src="placeholder" alt="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <p id="current-weather"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <p id="humidity"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <p id="windspeed"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex">
+                    <p id="UV-index"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
