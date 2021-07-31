@@ -104,7 +104,7 @@ function initPage() {
     // Clear
         clearEl.addEventListener("click",function() {
             searchHistory = [];
-            rendersearchHistory();
+            renderSearchHistory();
         })
 
     // Celsius to Fahrenheit
