@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -20,48 +22,75 @@
 </head>
 
 <body>
-
-<div class="input">
-    <input type="text" class="inputValue" placeholder="Enter a city">
-    <button id="button" value="submit">Submit</button>
-</div>
-</div>
-<button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
-<form id="history"></form>
-</div>
-
-<div class="col-8">
-    <div class="row mr-0">
-        <div class="col-12 border border-dark m-3 rounded">
-            <div class="row">
-                <div class="col-12">
-                    <span id="city-name" class="city-name align-middle"></span>
-                    <img id="temp-icon" src="placeholder" alt="">
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1 w-100 text-center">Weather Dashboard</span>
+    </nav>
+    <div class="container">
+        <div class="row">
+    <!-- col 4 sets search box to 4 size out of the 12 space; line 34 is the remainder -->
+            <div class="col-4 bg-light">
+                <p class="search-header my-1">Search for a city</p>
+                <div class="input-group mb-3">
+                    <input id="city-search" type="text" class="form-control" placeholder="Enter city name" aria-label="Enter city name">
+<!-- input-group-append adds search button to right side of form/input box -->
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="search-button">
+                            <!-- magnifying glass icon-->
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
+                <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
+                <form id="history"></form>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <p id="current-weather"></p>
+            <div class="col-8">
+                <div class="row mr-0">
+                    <div class="col-12 border border-dark m-3 rounded">
+                        <div class="row">
+                            <div class="col-12">
+                                <span id="city-name" class="city-name align-middle"></span>
+                                <img id="temp-icon" src="placeholder" alt="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p id="current-weather"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p id="humidity"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p id="windspeed"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 d-flex">
+                                <p id="UV-index"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <p id="humidity"></p>
+                <div class="row">
+                    <div class="col-12">
+                        <h3>5-Day Forecast</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <p id="windspeed"></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 d-flex">
-                    <p id="UV-index"></p>
+                <div class="row">
+                    <div class="col-3 d-flex">
+                    <div class="col weatherFor bg-primary text-white ml-3 rounded"></div>
+                    <div class="col weatherFor bg-primary text-white ml-3 rounded"></div>
+                    <div class="col weatherFor bg-primary text-white ml-3 rounded"></div>
+                    <div class="col weatherFor bg-primary text-white ml-3 rounded"></div>
+                    <div class="col weatherFor bg-primary text-white ml-3 rounded"></div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<!-- axios is a Promise based HTTP client for the browser and node.js -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="./Assets/js/script.js"></script>

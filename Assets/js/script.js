@@ -1,9 +1,13 @@
-const { assertSchema } = require("graphql");
-
 function initPage() {
+    const cityEl= document.getElementById("city-search");
     const searchEl = document.getElementById("search-button");
     const clearEl = document.getElementById("clear-history");
+    const currentWeatherEl = document.getElementById("current-weather");
     const nameEl = document.getElementById("city-name");
+    const iconEl = document.getElementById("temp-icon");
+    const humidityEl= document.getElementById("humidity");
+    const windspeedEl = document.getElementById("windspeed");
+    const cUVIndexEl = document.getElementById("UV-index");
     const historyEl = document.getElementById("history");
     // converting text into JavaScript object 
     let searchHistory = JSON.parse(localStorage.getItem("search"));
@@ -30,14 +34,14 @@ function initPage() {
                 nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year + ") ";
                 
                 let picture = response.data.weather[0].icon;
-                currentPicEl.setAttribute("src","https://openweathermap.org/img/wn/" + picture + "@2x.png");
-                currentPicEl.setAttribute("alt",response.data.weather[0].description);
+                iconEl.setAttribute("src","https://openweathermap.org/img/wn/" + picture + "@2x.png");
+                iconEl.setAttribute("alt",response.data.weather[0].description);
                 // Convert from Celsius to Fahrenheit
-                currentTempEl.innerHTML = "Temperature: " + celtoFah(response.data.main.temp) + " &#176F";
-                currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
-                currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
-                let latitude = response.data.coord.latitude;
-                let longitude = response.data.coord.longitude;
+                currentWeatherEl.innerHTML = "Temperature: " + celtoFah(response.data.main.temp) + " &#176F";
+                humidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+                windspeedEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
+                let latitude = response.data.coord.lat;
+                let longitude = response.data.coord.lon;
                 let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&cnt=1";
                 axios.get(UVQueryURL)
                     .then(function(response){
@@ -51,7 +55,7 @@ function initPage() {
             // 5 Day forcast 
                 let cityID = response.data.id;
                 let weatherforQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
-            // axios translating params and adding to query string ; GET Method
+            // axios translating params and adding to query string ; GET Method, appending to HTML
                 axios.get(weatherforQueryURL)
                 .then(function(response){
                     console.log(response);
@@ -65,7 +69,7 @@ function initPage() {
                         const weatherForYear = weatherForDate.getFullYear();
                         const weatherForDateEl = document.createElement("p");
 
-                        weatherForDateEl.setAttribute("class","mt-3 mb-0 weatherFor-date");
+                        weatherForDateEl.setAttribute("class","mt-3 weatherFor-date");
                         weatherForDateEl.innerHTML = weatherForMonth + "/" + weatherForDay + "/" + weatherForYear;
                         weatherForEls[i].append(weatherForDateEl);
 
@@ -76,23 +80,21 @@ function initPage() {
                         weatherForEls[i].append(weatherForWeatherEl);
 
                         const weatherForTempEl = document.createElement("p");
-                        weatherForTempEl.innerHTML = "Temp: " + k2f(response.data.list[weatherForIndex].main.temp) + " &#176F";
+                        weatherForTempEl.innerHTML = "Temp: " + celtoFah(response.data.list[weatherForIndex].main.temp) + " &#176F";
                         weatherForEls[i].append(weatherForTempEl);
 
-                        const ZHumidityEl = document.createElement("p");
+                        const weatherForHumidityEl = document.createElement("p");
                         weatherForHumidityEl.innerHTML = "Humidity: " + response.data.list[weatherForIndex].main.humidity + "%";
                         weatherForEls[i].append(weatherForHumidityEl);
+
                         }
                     })
                 });  
     }
-// Celsius to Fahrenheit
-    function celtoFah(K) {
-        return Math.floor((K - 273.15) *1.8 +32);
-    }
+
     // On click 
         searchEl.addEventListener("click",function() {
-            const searchTerm = inputEl.value;
+            const searchTerm = cityEl.value;
 
             displayWeather(searchTerm);
             searchHistory.push(searchTerm);
@@ -104,20 +106,26 @@ function initPage() {
             searchHistory = [];
             rendersearchHistory();
         })
+
+    // Celsius to Fahrenheit
+    function celtoFah(K) {
+        return Math.floor((K - 273.15) *1.8 +32);
+    }
+
     // History 
         function renderSearchHistory() {
             historyEl.innerHTML = "";
             for (let i=0; i<searchHistory.length; i++) {
-                const sHistory = document.createElement("input");
+                const shistoryitem = document.createElement("input");
 
-                sHistory.setAttribute("type","text");
-                sHistory.setAttribute("readonly",true);
-                sHistory.setAttribute("class", "form-control d-block bg-white");
-                sHistory.setAttribute("value", searchHistory[i]);
-                sHistory.addEventListener("click",function() {
-                    displayWeather(sHistory.value);
+                shistoryitem.setAttribute("type","text");
+                shistoryitem.setAttribute("readonly",true);
+                shistoryitem.setAttribute("class", "form-control d-block bg-white");
+                shistoryitem.setAttribute("value", searchHistory[i]);
+                shistoryitem.addEventListener("click",function() {
+                    displayWeather(shistoryitem.value);
                 })
-                historyEl.append(sHistory);
+                historyEl.append(shistoryitem);
             }
         }
     // Render
